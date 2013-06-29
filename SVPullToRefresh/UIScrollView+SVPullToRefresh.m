@@ -134,11 +134,12 @@ static char UIScrollViewPullToRefreshView;
             
             CGFloat yOrigin;
             switch (self.pullToRefreshView.position) {
-                case SVPullToRefreshPositionTop:
-                    yOrigin = -SVPullToRefreshViewHeight;
-                    break;
                 case SVPullToRefreshPositionBottom:
                     yOrigin = self.contentSize.height;
+                    break;
+                case SVPullToRefreshPositionTop:
+                default:
+                    yOrigin = -SVPullToRefreshViewHeight;
                     break;
             }
             
@@ -385,11 +386,12 @@ static char UIScrollViewPullToRefreshView;
     if(self.state != SVPullToRefreshStateLoading) {
         CGFloat scrollOffsetThreshold;
         switch (self.position) {
-            case SVPullToRefreshPositionTop:
-                scrollOffsetThreshold = self.frame.origin.y-self.originalTopInset;
-                break;
             case SVPullToRefreshPositionBottom:
                 scrollOffsetThreshold = MAX(self.scrollView.contentSize.height - self.scrollView.bounds.size.height, 0.0f) + self.bounds.size.height + self.originalBottomInset;
+                break;
+            case SVPullToRefreshPositionTop:
+            default:
+                scrollOffsetThreshold = self.frame.origin.y-self.originalTopInset;
                 break;
         }
         
