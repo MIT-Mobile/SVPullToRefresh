@@ -267,11 +267,11 @@ static char UIScrollViewPullToRefreshView;
                 break;
         }
         
-        CGFloat leftViewWidth = MAX(self.arrow.bounds.size.width,self.activityIndicatorView.bounds.size.width);
+//        CGFloat leftViewWidth = MAX(self.arrow.bounds.size.width,self.activityIndicatorView.bounds.size.width);
         
-        CGFloat margin = 10;
+        CGFloat margin = 20;
         CGFloat marginY = 2;
-        CGFloat labelMaxWidth = self.bounds.size.width - margin - leftViewWidth;
+        CGFloat labelMaxWidth = self.bounds.size.width;
         
         self.titleLabel.text = [self.titles objectAtIndex:self.state];
         
@@ -288,28 +288,28 @@ static char UIScrollViewPullToRefreshView;
                                                   constrainedToSize:CGSizeMake(labelMaxWidth,self.subtitleLabel.font.lineHeight)
                                                       lineBreakMode:self.subtitleLabel.lineBreakMode];
         
-        CGFloat maxLabelWidth = MAX(titleSize.width,subtitleSize.width);
-        CGFloat totalMaxWidth = leftViewWidth + margin + maxLabelWidth;
-        CGFloat labelX = (self.bounds.size.width / 2) - (totalMaxWidth / 2) + leftViewWidth + margin;
+//        CGFloat maxLabelWidth = MAX(titleSize.width,subtitleSize.width);
+//        CGFloat totalMaxWidth = leftViewWidth + margin + maxLabelWidth;
+//        CGFloat labelX = (self.bounds.size.width / 2) - (totalMaxWidth / 2) + leftViewWidth + margin;
         
         if(subtitleSize.height > 0){
             CGFloat totalHeight = titleSize.height + subtitleSize.height + marginY;
             CGFloat minY = (self.bounds.size.height / 2)  - (totalHeight / 2);
             
             CGFloat titleY = minY;
-            self.titleLabel.frame = CGRectIntegral(CGRectMake(labelX, titleY, titleSize.width, titleSize.height));
-            self.subtitleLabel.frame = CGRectIntegral(CGRectMake(labelX, titleY + titleSize.height + marginY, subtitleSize.width, subtitleSize.height));
+            self.titleLabel.frame = CGRectIntegral(CGRectMake(0, titleY, labelMaxWidth, titleSize.height));
+            self.subtitleLabel.frame = CGRectIntegral(CGRectMake(0, titleY + titleSize.height + marginY, labelMaxWidth, subtitleSize.height));
         }else{
             CGFloat totalHeight = titleSize.height;
             CGFloat minY = (self.bounds.size.height / 2)  - (totalHeight / 2);
             
             CGFloat titleY = minY;
-            self.titleLabel.frame = CGRectIntegral(CGRectMake(labelX, titleY, titleSize.width, titleSize.height));
-            self.subtitleLabel.frame = CGRectIntegral(CGRectMake(labelX, titleY + titleSize.height + marginY, subtitleSize.width, subtitleSize.height));
+            self.titleLabel.frame = CGRectIntegral(CGRectMake(0, titleY, labelMaxWidth, titleSize.height));
+            self.subtitleLabel.frame = CGRectIntegral(CGRectMake(0, titleY + titleSize.height + marginY, labelMaxWidth, subtitleSize.height));
         }
         
-        CGFloat arrowX = (self.bounds.size.width / 2) - (totalMaxWidth / 2) + (leftViewWidth - self.arrow.bounds.size.width) / 2;
-        self.arrow.frame = CGRectMake(arrowX,
+//        CGFloat arrowX = (self.bounds.size.width / 2) - (totalMaxWidth / 2) + (leftViewWidth - self.arrow.bounds.size.width) / 2;
+        self.arrow.frame = CGRectMake(margin,
                                       (self.bounds.size.height / 2) - (self.arrow.bounds.size.height / 2),
                                       self.arrow.bounds.size.width,
                                       self.arrow.bounds.size.height);
@@ -456,6 +456,7 @@ static char UIScrollViewPullToRefreshView;
         _titleLabel.font = [UIFont boldSystemFontOfSize:14];
         _titleLabel.backgroundColor = [UIColor clearColor];
         _titleLabel.textColor = textColor;
+        _titleLabel.textAlignment = UITextAlignmentCenter;
         [self addSubview:_titleLabel];
     }
     return _titleLabel;
@@ -467,6 +468,7 @@ static char UIScrollViewPullToRefreshView;
         _subtitleLabel.font = [UIFont systemFontOfSize:12];
         _subtitleLabel.backgroundColor = [UIColor clearColor];
         _subtitleLabel.textColor = textColor;
+        _subtitleLabel.textAlignment = UITextAlignmentCenter;
         [self addSubview:_subtitleLabel];
     }
     return _subtitleLabel;
